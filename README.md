@@ -2,7 +2,7 @@
 
 **Calculator** es una *API Restful* la cual funciona como una calculadora simple.
 
-## Instalacion
+## Instalación
 
 Como único paso se deben instalar los requerimientos del proyecto:
 
