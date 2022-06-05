@@ -1,16 +1,32 @@
-from .entities import IntSum
+from abc import ABC, abstractmethod
 
-class IntSumView():
+from .entities import IntSum, IntSub
+
+
+class IntBinaryOperation(ABC):
     def get(self, data):
         try:
             operand1 = data['operand1']
             operand2 = data['operand2']
-            sum = IntSum(operand1, operand2)
+            operation = self.operation(operand1, operand2)
         except ValueError as e:
-            body = e.args[0]
+            body = {'error': e.args[0]}
             status = 400
         else:
-            body = sum.execute()
+            body = operation
             status = 200
 
         return body, status
+
+    def operation(self, operand1, operand2):
+        pass
+
+
+class IntSumView(IntBinaryOperation):
+    def operation(self, operand1, operand2):
+        return IntSum(operand1, operand2).execute()
+
+
+class IntSubView(IntBinaryOperation):
+    def operation(self, operand1, operand2):
+        return IntSub(operand1, operand2).execute()
