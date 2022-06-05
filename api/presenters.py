@@ -11,7 +11,7 @@ class IntBinaryOperationView(ABC):
             body = {'error': e.args[0]}
             status = 400
         else:
-            body = operation
+            body = {'result': operation}
             status = 200
 
         return body, status
