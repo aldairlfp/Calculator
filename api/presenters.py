@@ -3,11 +3,9 @@ from abc import ABC, abstractmethod
 from .entities import IntSum, IntSub
 
 
-class IntBinaryOperation(ABC):
-    def get(self, data):
+class IntBinaryOperationView(ABC):
+    def get(self, operand1, operand2):
         try:
-            operand1 = data['operand1']
-            operand2 = data['operand2']
             operation = self.operation(operand1, operand2)
         except ValueError as e:
             body = {'error': e.args[0]}
@@ -22,11 +20,11 @@ class IntBinaryOperation(ABC):
         pass
 
 
-class IntSumView(IntBinaryOperation):
+class IntSumView(IntBinaryOperationView):
     def operation(self, operand1, operand2):
         return IntSum(operand1, operand2).execute()
 
 
-class IntSubView(IntBinaryOperation):
+class IntSubView(IntBinaryOperationView):
     def operation(self, operand1, operand2):
         return IntSub(operand1, operand2).execute()
